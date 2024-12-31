@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Model Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+    input[type="text"] {
+      width: 300px;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    table {
+      width: 50%;
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h1>Car Model Pricing</h1>
+  <input
+    type="text"
+    id="searchBar"
+    placeholder="Search for a car model..."
+    onkeyup="searchCar()"
+  />
+  <table>
+    <thead>
+      <tr>
+        <th>Car Model</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody id="carList">
+      <!-- Data will be populated here -->
+    </tbody>
+  </table>
+
+  <script>
+    const cars = [
+      { model: "Toyota Corolla", price: "$20,000" },
+      { model: "Honda Civic", price: "$22,000" },
+      { model: "Ford Mustang", price: "$35,000" },
+      { model: "Tesla Model 3", price: "$40,000" },
+      { model: "BMW 3 Series", price: "$45,000" }
+    ];
+
+    function populateTable(data) {
+      const tableBody = document.getElementById("carList");
+      tableBody.innerHTML = ""; // Clear the table
+      data.forEach(car => {
+        const row = `<tr>
+          <td>${car.model}</td>
+          <td>${car.price}</td>
+        </tr>`;
+        tableBody.innerHTML += row;
+      });
+    }
+
+    function searchCar() {
+      const query = document.getElementById("searchBar").value.toLowerCase();
+      const filteredCars = cars.filter(car =>
+        car.model.toLowerCase().includes(query)
+      );
+      populateTable(filteredCars);
+    }
+
+    // Populate the table with all cars initially
+    populateTable(cars);
+  </script>
+</body>
+</html>
